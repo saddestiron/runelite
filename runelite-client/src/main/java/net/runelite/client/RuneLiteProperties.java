@@ -28,8 +28,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import javax.annotation.Nullable;
-import okhttp3.HttpUrl;
 
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.HttpUrl;
+@Slf4j
 public class RuneLiteProperties
 {
 	private static final String RUNELITE_TITLE = "runelite.title";
@@ -138,7 +140,8 @@ public class RuneLiteProperties
 	public static HttpUrl getPluginHubBase()
 	{
 		String version = System.getProperty(PLUGINHUB_VERSION, properties.getProperty(PLUGINHUB_VERSION));
-		return HttpUrl.parse(properties.get(PLUGINHUB_BASE) + "/" + version);
+		log.debug("PluginHub {} Failed", properties.get(PLUGINHUB_BASE) + "/" + version);
+		return HttpUrl.parse(properties.get(PLUGINHUB_BASE) + "/1.6.18.1");// + version);
 	}
 
 	public static String getImgurClientId()

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Jordan Atwood <jordan.atwood423@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,63 +22,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.config;
+package net.runelite.client.plugins.inferno.displaymodes;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import lombok.RequiredArgsConstructor;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface ConfigItem
+@RequiredArgsConstructor
+public enum InfernoWaveDisplayMode
 {
-	int position() default -1;
+	CURRENT("Current wave"),
+	NEXT("Next wave"),
+	BOTH("Both"),
+	NONE("None");
 
-	String keyName();
+	private final String name;
 
-	String name();
-
-	String description();
-
-	boolean hidden() default false;
-
-	String warning() default "";
-
-	boolean secret() default false;
-
-	String section() default "";
-
-	String titleSection() default "";
-
-	String unhide() default "";
-
-	String unhideValue() default "";
-
-	String hide() default "";
-
-	String hideValue() default "";
-
-	String enabledBy() default "";
-
-	String enabledByValue() default "";
-
-	String disabledBy() default "";
-
-	String disabledByValue() default "";
-
-	boolean parse() default false;
-
-	Class<?> clazz() default void.class;
-
-	String method() default "";
-
-	/**
-	 * Use this to indicate the enum class that is going to be used in the multiple select config.
-	 * This implementation made debugging problems with multiple selects a lot easier
-	 *
-	 * @return The Enum that will be used for the multiple select
-	 */
-	Class<? extends Enum> enumClass() default Enum.class;
-
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }
