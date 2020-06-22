@@ -46,6 +46,7 @@ class InfernoTimer
         this.warning = true;
         this.lastUpdate = Instant.now().getEpochSecond();
         this.active = false;
+        this.loop = true;
     }
 
     boolean addTime(long extraDuration) {
@@ -53,9 +54,6 @@ class InfernoTimer
         {
             if (remaining > 0)
             {
-                log.debug("add time: " + extraDuration);
-                log.debug("duration: " + duration);
-                log.debug("remaining: " + remaining);
                 remaining = extraDuration + Math.max(0, remaining - (Instant.now().getEpochSecond() - lastUpdate));
                 warning = false;
             }
@@ -78,7 +76,7 @@ class InfernoTimer
 
     boolean start()
     {
-        if (!active && duration > 0)
+        if (duration > 0)
         {
             if (remaining <= 0)
             {

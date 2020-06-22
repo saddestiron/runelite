@@ -251,7 +251,7 @@ public class InfernoPlugin extends Plugin
 		{
 
 			overlayManager.add(infernoOverlay);
-			overlayManager.add(setTimerOverlay);
+
 
 			if (this.waveDisplay != InfernoWaveDisplayMode.NONE)
 			{
@@ -338,11 +338,12 @@ public class InfernoPlugin extends Plugin
 
 		if (getCurrentWaveNumber() == 69) {
 			for (InfernoNPC infernoNPC : getInfernoNpcs()) {
-				if (infernoNPC.getType() == InfernoNPC.Type.ZUK && getZukHealth(infernoNPC) <= 110 && infernoTimer.active) {
+				if (infernoNPC.getType() == InfernoNPC.Type.ZUK && getZukHealth(infernoNPC) <= 600 && infernoTimer.active) {
 					infernoTimer.pause();
 				}
 			}
 		}
+		checkTimerCompletion();
 ///7000
 	}
 
@@ -372,6 +373,24 @@ public class InfernoPlugin extends Plugin
 		return health;
 	}
 
+	private void checkTimerCompletion() {
+		if (infernoTimer.isActive() && infernoTimer.getDisplayTime() == 0)
+		{
+			infernoTimer.pause();
+
+
+//			if (config.timerNotification())
+//			{
+//				notifier.notify("[" + timer.getName() + "] has finished counting down.");
+//			}
+
+			if (infernoTimer.isLoop())
+			{
+				infernoTimer.start();
+			}
+		}
+	}
+
 	@Subscribe
 	private void onNpcSpawned(NpcSpawned event)
 	{
@@ -399,8 +418,6 @@ public class InfernoPlugin extends Plugin
 			zukShieldCornerTicks = -2;
 			zukShieldLastPosition = null;
 			zukShieldBase = null;
-			infernoTimer.setDuration(45);
-			infernoTimer.start();
 		}
 		if (infernoNPCType == InfernoNPC.Type.HEALER_ZUK)
 		{
@@ -408,21 +425,19 @@ public class InfernoPlugin extends Plugin
 			finalPhase = true;
 		}
 		if (getCurrentWaveNumber() == 69){
+			overlayManager.add(setTimerOverlay);
 
 			if(infernoNPCType == InfernoNPC.Type.MAGE) {
 
-				infernoTimer.setDuration(210);
-				if(!infernoTimer.isActive()) {
-					infernoTimer.reset();
-				}
 				infernoTimer.start();
 			}
 			if(infernoNPCType == InfernoNPC.Type.JAD) {
 
-				infernoTimer.addTime(105);
 				infernoTimer.start();
+				infernoTimer.addTime(105);
 			}
 		}
+
 		// Blobs need to be added to the end of the list because the prayer for their detection tick will be based
 		// on the upcoming attacks of other NPC's
 		if (infernoNPCType == InfernoNPC.Type.BLOB)
@@ -496,7 +511,6 @@ public class InfernoPlugin extends Plugin
 			infernoNpcs.clear();
 
 			currentWaveNumber = 1;
-			overlayManager.add(setTimerOverlay);
 			overlayManager.add(infernoOverlay);
 
 			overlayManager.add(jadOverlay);
@@ -508,10 +522,6 @@ public class InfernoPlugin extends Plugin
 			}
 
 		}
-		if(currentWaveNumber == 69) {
-			overlayManager.add(setTimerOverlay);
-		}
-
 	}
 
 	@Subscribe
@@ -528,6 +538,10 @@ public class InfernoPlugin extends Plugin
 		{
 			message = message.substring(message.indexOf(": ") + 2);
 			currentWaveNumber = Integer.parseInt(message.substring(0, message.indexOf('<')));
+			if (currentWaveNumber == 69) {
+				overlayManager.add(setTimerOverlay);
+				infernoTimer.setDuration(210);
+			}
 		}
 	}
 
