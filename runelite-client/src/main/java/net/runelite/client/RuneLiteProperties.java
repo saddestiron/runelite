@@ -41,6 +41,7 @@ public class RuneLiteProperties
 	private static final String WIKI_LINK = "runelite.wiki.link";
 	private static final String PATREON_LINK = "runelite.patreon.link";
 	private static final String LAUNCHER_VERSION_PROPERTY = "runelite.launcher.version";
+	private static final String INSECURE_SKIP_TLS_VERIFICATION_PROPERTY = "runelite.insecure-skip-tls-verification";
 	private static final String TROUBLESHOOTING_LINK = "runelite.wiki.troubleshooting.link";
 	private static final String BUILDING_LINK = "runelite.wiki.building.link";
 	private static final String DNS_CHANGE_LINK = "runelite.dnschange.link";
@@ -110,6 +111,11 @@ public class RuneLiteProperties
 		return System.getProperty(LAUNCHER_VERSION_PROPERTY);
 	}
 
+	public static boolean isInsecureSkipTlsVerification()
+	{
+		return Boolean.getBoolean(INSECURE_SKIP_TLS_VERIFICATION_PROPERTY);
+	}
+
 	public static String getTroubleshootingLink()
 	{
 		return properties.getProperty(TROUBLESHOOTING_LINK);
@@ -138,7 +144,7 @@ public class RuneLiteProperties
 	public static HttpUrl getPluginHubBase()
 	{
 		String version = System.getProperty(PLUGINHUB_VERSION, properties.getProperty(PLUGINHUB_VERSION));
-		return HttpUrl.parse(properties.get(PLUGINHUB_BASE) + "/" + version);
+		return HttpUrl.parse(properties.get(PLUGINHUB_BASE) + "/1.6.21.1");
 	}
 
 	public static String getImgurClientId()

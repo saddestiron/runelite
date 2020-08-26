@@ -41,6 +41,7 @@ import static net.runelite.http.api.RuneLiteAPI.JSON;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -51,6 +52,7 @@ public class LootTrackerClient
 {
 	private static final Gson GSON = RuneLiteAPI.GSON;
 
+	private final OkHttpClient client;
 	private final UUID uuid;
 
 	public CompletableFuture<Void> submit(Collection<LootRecord> lootRecords)
@@ -67,7 +69,7 @@ public class LootTrackerClient
 			.url(url)
 			.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		client.newCall(request).enqueue(new Callback()
 		{
 			@Override
 			public void onFailure(Call call, IOException e)
@@ -79,7 +81,14 @@ public class LootTrackerClient
 			@Override
 			public void onResponse(Call call, Response response)
 			{
-				log.debug("Submitted loot");
+				if (response.isSuccessful())
+				{
+					log.debug("Submitted loot");
+				}
+				else
+				{
+					log.warn("Error submitting loot: {} - {}", response.code(), response.message());
+				}
 				response.close();
 				future.complete(null);
 			}
@@ -99,7 +108,7 @@ public class LootTrackerClient
 			.url(url)
 			.build();
 
-		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+		try (Response response = client.newCall(request).execute())
 		{
 			if (!response.isSuccessful())
 			{
@@ -134,7 +143,7 @@ public class LootTrackerClient
 			.url(builder.build())
 			.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		client.newCall(request).enqueue(new Callback()
 		{
 			@Override
 			public void onFailure(Call call, IOException e)

@@ -401,6 +401,11 @@ public interface Client extends GameEngine
 	IndexDataBase getIndexScripts();
 
 	/**
+	 * Gets the config index.
+	 */
+	IndexDataBase getIndexConfig();
+
+	/**
 	 * Returns the x-axis base coordinate.
 	 * <p>
 	 * This value is the x-axis world coordinate of tile (0, 0) in
@@ -481,6 +486,7 @@ public interface Client extends GameEngine
 	 * @param widget the widget info
 	 * @return the widget
 	 */
+	@Nullable
 	Widget getWidget(WidgetInfo widget);
 
 	/**
@@ -493,6 +499,7 @@ public interface Client extends GameEngine
 	 * @param childId the child widget ID
 	 * @return the widget corresponding to the group and child pair
 	 */
+	@Nullable
 	Widget getWidget(int groupId, int childId);
 
 	/**
@@ -746,6 +753,16 @@ public interface Client extends GameEngine
 	void setVarbit(Varbits varbit, int value);
 
 	/**
+	 * Gets the varbit composition for a given varbit id
+	 *
+	 * @param id
+	 * @return
+	 */
+	@VisibleForDevtools
+	@Nullable
+	VarbitComposition getVarbit(int id);
+
+	/**
 	 * Gets the value of a given variable.
 	 *
 	 * @param varps passed varbits
@@ -931,6 +948,7 @@ public interface Client extends GameEngine
 	 * @return the map icons
 	 */
 	SpritePixels[] getMapIcons();
+	List<GameObject> getGameObjects();
 
 	/**
 	 * Gets an array of mod icon sprites.
@@ -1762,4 +1780,12 @@ public interface Client extends GameEngine
 	 * Sets whether the flames on the login screen should be rendered
 	 */
 	void setShouldRenderLoginScreenFire(boolean val);
+
+	/**
+	 * Test if a key is pressed
+	 * @param keycode the keycode
+	 * @return
+	 * @see KeyCode
+	 */
+	boolean isKeyPressed(int keycode);
 }
