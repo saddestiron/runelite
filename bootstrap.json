@@ -3,7 +3,7 @@
     {
       "hash": "308775ae89ee583e81239ff4221c0f50f44789b8f04661d2185797734cfea1ed",
       "name": "client-1.6.30-SNAPSHOT.jar",
-      "path": "https://github.com/saddestiron/runelite/tree/master/runelite-client/target/client-1.6.30-SNAPSHOT.jar",
+      "path": "https://github.com/saddestiron/runelite/blob/master/runelite-client/target/client-1.6.30-SNAPSHOT.jar",
       "size": 5204281
     },
     {
@@ -171,7 +171,7 @@
     {
       "hash": "221a4919212780c601534343efa05e128b0b12266c904e5025107c57bde2dde4",
       "name": "runelite-api-1.6.30-SNAPSHOT.jar",
-      "path": "https://github.com/saddestiron/runelite/tree/master/runelite-api/target/client-1.6.30-SNAPSHOT.jar",
+      "path": "https://github.com/saddestiron/runelite/blob/master/runelite-api/target/runelite-api-1.6.30-SNAPSHOT.jar",
       "size": 1126888
     },
     {
