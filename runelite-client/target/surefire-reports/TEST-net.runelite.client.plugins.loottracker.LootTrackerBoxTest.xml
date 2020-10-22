@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="net.runelite.client.plugins.loottracker.LootTrackerBoxTest" time="0.003" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.vendor" value="Eclipse OpenJ9"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="idea.version2020.1.2" value="true"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.runtime.version" value="11.0.7+10"/>
+    <property name="user.name" value="andre"/>
+    <property name="java.compiler" value="j9jit29"/>
+    <property name="os.encoding" value="UTF8"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="com.ibm.util.extralibs.properties" value=""/>
+    <property name="com.ibm.jcl.checkClassPath" value=""/>
+    <property name="user.language" value="en"/>
+    <property name="com.ibm.oti.vm.bootstrap.library.path" value="C:\Users\andre\.jdks\adopt-openj9-11.0.7\bin\compressedrefs;C:\Users\andre\.jdks\adopt-openj9-11.0.7\bin"/>
+    <property name="sun.boot.library.path" value="C:\Users\andre\.jdks\adopt-openj9-11.0.7\bin\compressedrefs;C:\Users\andre\.jdks\adopt-openj9-11.0.7\bin"/>
+    <property name="classworlds.conf" value="E:\IntelliJ IDEA Community Edition 2020.1.1\IntelliJ IDEA Community Edition 2020.1.2\plugins\maven\lib\maven3\bin\m2.conf"/>
+    <property name="jdk.extensions.version" value="11.0.7.0"/>
+    <property name="java.version" value="11.0.7"/>
+    <property name="user.timezone" value="America/Chicago"/>
+    <property name="com.ibm.system.agent.path" value="C:\Users\andre\.jdks\adopt-openj9-11.0.7\bin"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="com.ibm.oti.vm.library.version" value="29"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="maven.conf" value="E:\IntelliJ IDEA Community Edition 2020.1.1\IntelliJ IDEA Community Edition 2020.1.2\plugins\maven\lib\maven3/conf"/>
+    <property name="java.class.version" value="55.0"/>
+    <property name="user.country" value="US"/>
+    <property name="java.home" value="C:\Users\andre\.jdks\adopt-openj9-11.0.7"/>
+    <property name="java.vm.info" value="JRE 11 Windows 10 amd64-64-Bit Compressed References 20200422_551 (JIT enabled, AOT enabled)&#10;OpenJ9   - 05fa2d361&#10;OMR      - d4365f371&#10;JCL      - 838028fc9d based on jdk-11.0.7+10"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.awt.fonts" value=""/>
+    <property name="path.separator" value=";"/>
+    <property name="java.vm.version" value="openj9-0.20.0"/>
+    <property name="user.variant" value=""/>
+    <property name="maven.ext.class.path" value="E:\IntelliJ IDEA Community Edition 2020.1.1\IntelliJ IDEA Community Edition 2020.1.2\plugins\maven\lib\maven-event-listener.jar"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="jdk.extensions.name" value="Extensions for OpenJDK for Eclipse OpenJ9"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="ibm.signalhandling.sigint" value="true"/>
+    <property name="user.home" value="C:\Users\andre"/>
+    <property name="com.ibm.cpu.endian" value="little"/>
+    <property name="java.version.date" value="2020-04-14"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="ibm.signalhandling.sigchain" value="true"/>
+    <property name="java.library.path" value="C:\Users\andre\.jdks\adopt-openj9-11.0.7\bin\compressedrefs;C:\Users\andre\.jdks\adopt-openj9-11.0.7\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Windows\System32;C:\Windows;C:\Program Files\Java\jdk-14\bin;C:\Windows\System32\wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\AMD\ATI.ACE\Core-Static;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\nodejs\;C:\Program Files\PuTTY\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;%SYSTEMROOT%\System32\OpenSSH\;C:\Users\andre\AppData\Local\Programs\Python\Python38-32\Scripts\;C:\Users\andre\AppData\Local\Programs\Python\Python38-32\;C:\Users\andre\AppData\Local\Microsoft\WindowsApps;C:\Users\andre\AppData\Roaming\npm;C:\Program Files\Microsoft VS Code\bin;D:\IntelliJ IDEA Community Edition 2019.1\bin;C:\Program Files\Java\jdk-14\bin;;E:\IntelliJ IDEA Community Edition 2020.1.1\IntelliJ IDEA Community Edition 2020.1.2\bin;;C:\Users\andre\AppData\Local\Microsoft\WindowsApps;."/>
+    <property name="java.vendor.url" value="http://www.eclipse.org/openj9"/>
+    <property name="java.vm.vendor" value="Eclipse OpenJ9"/>
+    <property name="java.fullversion" value="11.0.7+10&#10;JRE 11 Windows 10 amd64-64-Bit Compressed References 20200422_551 (JIT enabled, AOT enabled)&#10;OpenJ9   - 05fa2d361&#10;OMR      - d4365f371&#10;JCL      - 838028fc9d based on jdk-11.0.7+10"/>
+    <property name="maven.home" value="E:\IntelliJ IDEA Community Edition 2020.1.1\IntelliJ IDEA Community Edition 2020.1.2\plugins\maven\lib\maven3"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version2020.1.2 install"/>
+    <property name="java.class.path" value="E:\IntelliJ IDEA Community Edition 2020.1.1\IntelliJ IDEA Community Edition 2020.1.2\plugins\maven\lib\maven3\boot\plexus-classworlds-2.6.0.jar;E:\IntelliJ IDEA Community Edition 2020.1.1\IntelliJ IDEA Community Edition 2020.1.2\plugins\maven\lib\maven3\boot\plexus-classworlds.license;E:\IntelliJ IDEA Community Edition 2020.1.1\IntelliJ IDEA Community Edition 2020.1.2\lib\idea_rt.jar"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="java.io.tmpdir" value="C:\Users\andre\AppData\Local\Temp\"/>
+    <property name="maven.multiModuleProjectDirectory" value="E:\sadlite2"/>
+    <property name="ibm.system.encoding" value="Cp1252"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="ibm.signalhandling.rs" value="false"/>
+    <property name="user.dir" value="E:\sadlite2"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.name" value="Eclipse OpenJ9 VM"/>
+    <property name="com.ibm.oti.shared.enabled" value="false"/>
+    <property name="com.ibm.vm.bitmode" value="64"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="com.ibm.oti.configuration" value="scar"/>
+    <property name="java.vendor.version" value="AdoptOpenJDK"/>
+  </properties>
+  <testcase name="testAddKill" classname="net.runelite.client.plugins.loottracker.LootTrackerBoxTest" time="0.003"/>
+</testsuite>

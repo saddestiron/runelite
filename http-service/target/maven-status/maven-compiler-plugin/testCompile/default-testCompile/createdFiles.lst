@@ -1,0 +1,7 @@
+net\runelite\http\service\loottracker\LootTrackerControllerTest.class
+net\runelite\http\service\xp\XpMapperTest.class
+net\runelite\http\service\config\ConfigServiceTest.class
+net\runelite\http\service\hiscore\HiscoreServiceTest.class
+net\runelite\http\service\config\ConfigControllerTest.class
+net\runelite\http\service\worlds\WorldsServiceTest.class
+net\runelite\http\service\hiscore\HiscoreTestService.class

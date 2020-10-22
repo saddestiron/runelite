@@ -1,0 +1,2786 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Open source RuneScape client",
+    "version" : "1.6.30-SNAPSHOT",
+    "title" : "RuneLite HTTP API",
+    "license" : {
+      "name" : "BSD 2-Clause \"Simplified\"",
+      "url" : "https://tldrlegal.com/license/bsd-2-clause-license-(freebsd)"
+    }
+  },
+  "host" : "api.runelite.net",
+  "basePath" : "/runelite-1.6.30-SNAPSHOT",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/account/callback" : {
+      "get" : {
+        "operationId" : "callback",
+        "parameters" : [ {
+          "name" : "error",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "code",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "state",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/account/login" : {
+      "get" : {
+        "operationId" : "login",
+        "parameters" : [ {
+          "name" : "uuid",
+          "in" : "query",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/OAuthResponse"
+            }
+          }
+        }
+      }
+    },
+    "/account/logout" : {
+      "get" : {
+        "operationId" : "logout",
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/account/session-check" : {
+      "get" : {
+        "operationId" : "sessionCheck",
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/cache/" : {
+      "get" : {
+        "operationId" : "listCaches",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Cache"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cache/item/{itemId}" : {
+      "get" : {
+        "operationId" : "getItem",
+        "parameters" : [ {
+          "name" : "itemId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ItemDefinition"
+            }
+          }
+        }
+      }
+    },
+    "/cache/item/{itemId}/image" : {
+      "get" : {
+        "operationId" : "getItemImage",
+        "produces" : [ "image/png" ],
+        "parameters" : [ {
+          "name" : "itemId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "quantity",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 1,
+          "format" : "int32"
+        }, {
+          "name" : "border",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 1,
+          "format" : "int32"
+        }, {
+          "name" : "shadowColor",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 3153952,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string",
+                "format" : "byte"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cache/npc/{npcId}" : {
+      "get" : {
+        "operationId" : "getNpc",
+        "parameters" : [ {
+          "name" : "npcId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/NpcDefinition"
+            }
+          }
+        }
+      }
+    },
+    "/cache/object/{objectId}" : {
+      "get" : {
+        "operationId" : "getObject",
+        "parameters" : [ {
+          "name" : "objectId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ObjectDefinition"
+            }
+          }
+        }
+      }
+    },
+    "/cache/{cacheId}" : {
+      "get" : {
+        "operationId" : "listIndexes",
+        "parameters" : [ {
+          "name" : "cacheId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CacheIndex"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cache/{cacheId}/{indexId}" : {
+      "get" : {
+        "operationId" : "listArchives",
+        "parameters" : [ {
+          "name" : "cacheId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "indexId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CacheArchive"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cache/{cacheId}/{indexId}/{archiveId}" : {
+      "get" : {
+        "operationId" : "getCacheArchive",
+        "parameters" : [ {
+          "name" : "cacheId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "indexId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "archiveId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CacheArchive"
+            }
+          }
+        }
+      }
+    },
+    "/cache/{cacheId}/{indexId}/{archiveId}/data" : {
+      "get" : {
+        "operationId" : "getArchiveData",
+        "parameters" : [ {
+          "name" : "cacheId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "indexId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "archiveId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string",
+                "format" : "byte"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/duels" : {
+      "get" : {
+        "operationId" : "getDuels",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Duels"
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submitDuels",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "wins",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "losses",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "winningStreak",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "losingStreak",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/chat/gc" : {
+      "get" : {
+        "operationId" : "getKc",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submitGc",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "gc",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/chat/kc" : {
+      "get" : {
+        "operationId" : "getKc",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "boss",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submitKc",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "boss",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "kc",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/chat/layout" : {
+      "get" : {
+        "operationId" : "getLayout",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string",
+                "enum" : [ "START", "END", "SCAVENGERS", "FARMING", "EMPTY", "TEKTON", "MUTTADILES", "GUARDIANS", "VESPULA", "SHAMANS", "VASA", "VANGUARDS", "MYSTICS", "UNKNOWN_COMBAT", "CRABS", "ICE_DEMON", "TIGHTROPE", "THIEVING", "UNKNOWN_PUZZLE" ]
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submitLayout",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "START", "END", "SCAVENGERS", "FARMING", "EMPTY", "TEKTON", "MUTTADILES", "GUARDIANS", "VESPULA", "SHAMANS", "VASA", "VANGUARDS", "MYSTICS", "UNKNOWN_COMBAT", "CRABS", "ICE_DEMON", "TIGHTROPE", "THIEVING", "UNKNOWN_PUZZLE" ]
+            }
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/chat/pb" : {
+      "get" : {
+        "operationId" : "getPb",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "boss",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submitPb",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "boss",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "pb",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/chat/qp" : {
+      "get" : {
+        "operationId" : "getQp",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submitQp",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "qp",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/chat/task" : {
+      "get" : {
+        "operationId" : "getTask",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Task"
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submitTask",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "task",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "amount",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "initialAmount",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "location",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/config" : {
+      "get" : {
+        "operationId" : "get",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Configuration"
+            }
+          }
+        }
+      }
+    },
+    "/config/{key}" : {
+      "put" : {
+        "operationId" : "setKey",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : ".+"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "delete" : {
+        "operationId" : "unsetKey",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "pattern" : ".+"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/examine/item/{id}" : {
+      "get" : {
+        "operationId" : "getItem",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submitItem",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/examine/npc/{id}" : {
+      "get" : {
+        "operationId" : "getNpc",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submitNpc",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/examine/object/{id}" : {
+      "get" : {
+        "operationId" : "getObject",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submitObject",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/feed" : {
+      "get" : {
+        "operationId" : "getFeed",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/FeedResult"
+            }
+          }
+        }
+      }
+    },
+    "/ge" : {
+      "get" : {
+        "operationId" : "get",
+        "parameters" : [ {
+          "name" : "limit",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 1024,
+          "format" : "int32"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/GrandExchangeTradeHistory"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submit",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/GrandExchangeTrade"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "delete" : {
+        "operationId" : "delete",
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/hiscore/{endpoint}" : {
+      "get" : {
+        "operationId" : "lookup",
+        "parameters" : [ {
+          "name" : "endpoint",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "NORMAL", "IRONMAN", "HARDCORE_IRONMAN", "ULTIMATE_IRONMAN", "DEADMAN", "LEAGUE", "TOURNAMENT" ]
+        }, {
+          "name" : "username",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/HiscoreResult"
+            }
+          }
+        }
+      }
+    },
+    "/hiscore/{endpoint}/{skillName}" : {
+      "get" : {
+        "operationId" : "singleSkillLookup",
+        "parameters" : [ {
+          "name" : "endpoint",
+          "in" : "path",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "NORMAL", "IRONMAN", "HARDCORE_IRONMAN", "ULTIMATE_IRONMAN", "DEADMAN", "LEAGUE", "TOURNAMENT" ]
+        }, {
+          "name" : "skillName",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "username",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/SingleHiscoreSkillResult"
+            }
+          }
+        }
+      }
+    },
+    "/item/price" : {
+      "get" : {
+        "operationId" : "prices",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "query",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ItemPrice"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/item/prices" : {
+      "get" : {
+        "operationId" : "prices",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ItemPrice"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/item/{itemId}/price" : {
+      "get" : {
+        "operationId" : "itemPrice",
+        "parameters" : [ {
+          "name" : "itemId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "time",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ItemPrice"
+            }
+          }
+        }
+      }
+    },
+    "/loottracker" : {
+      "get" : {
+        "operationId" : "getLootAggregate",
+        "parameters" : [ {
+          "name" : "count",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 1024,
+          "format" : "int32"
+        }, {
+          "name" : "start",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LootAggregate"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "storeLootRecord",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/LootRecord"
+            }
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      },
+      "delete" : {
+        "operationId" : "deleteLoot",
+        "parameters" : [ {
+          "name" : "eventId",
+          "in" : "query",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/osb/ge" : {
+      "get" : {
+        "operationId" : "get",
+        "parameters" : [ {
+          "name" : "itemId",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/GrandExchangeEntry"
+            }
+          }
+        }
+      }
+    },
+    "/pluginhub" : {
+      "get" : {
+        "operationId" : "get",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "integer",
+                "format" : "int64"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submit",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/sprite" : {
+      "get" : {
+        "operationId" : "getSprite",
+        "produces" : [ "image/png" ],
+        "parameters" : [ {
+          "name" : "spriteId",
+          "in" : "query",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "frameId",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0,
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string",
+                "format" : "byte"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/worlds" : {
+      "get" : {
+        "operationId" : "listWorlds",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/WorldResult"
+            }
+          }
+        }
+      }
+    },
+    "/xp/get" : {
+      "get" : {
+        "operationId" : "get",
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "time",
+          "in" : "query",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/XpData"
+            }
+          }
+        }
+      }
+    },
+    "/xp/update" : {
+      "get" : {
+        "operationId" : "update",
+        "parameters" : [ {
+          "name" : "username",
+          "in" : "query",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/xtea" : {
+      "get" : {
+        "operationId" : "get",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/XteaKey"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "submit",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/XteaRequest"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
+    "/xtea/{region}" : {
+      "get" : {
+        "operationId" : "getRegion",
+        "parameters" : [ {
+          "name" : "region",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/XteaKey"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Cache" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "revision" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "date" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "CacheArchive" : {
+      "type" : "object",
+      "properties" : {
+        "archiveId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nameHash" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "revision" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "CacheIndex" : {
+      "type" : "object",
+      "properties" : {
+        "indexId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "revision" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "ConfigEntry" : {
+      "type" : "object",
+      "properties" : {
+        "key" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Configuration" : {
+      "type" : "object",
+      "properties" : {
+        "config" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ConfigEntry"
+          }
+        }
+      }
+    },
+    "Duels" : {
+      "type" : "object",
+      "properties" : {
+        "wins" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "losses" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "winningStreak" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "losingStreak" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "FeedItem" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "string",
+          "enum" : [ "BLOG_POST", "TWEET", "OSRS_NEWS" ]
+        },
+        "avatar" : {
+          "type" : "string"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "content" : {
+          "type" : "string"
+        },
+        "url" : {
+          "type" : "string"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "FeedResult" : {
+      "type" : "object",
+      "properties" : {
+        "items" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/FeedItem"
+          }
+        }
+      }
+    },
+    "GameItem" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "qty" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "GrandExchangeEntry" : {
+      "type" : "object",
+      "properties" : {
+        "item_id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "buy_average" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sell_average" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "overall_average" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "last_update" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "GrandExchangeTrade" : {
+      "type" : "object",
+      "properties" : {
+        "buy" : {
+          "type" : "boolean"
+        },
+        "cancel" : {
+          "type" : "boolean"
+        },
+        "login" : {
+          "type" : "boolean"
+        },
+        "itemId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "qty" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dqty" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "total" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "spent" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dspent" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "offer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "slot" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "worldType" : {
+          "type" : "string",
+          "enum" : [ "MEMBERS", "PVP", "BOUNTY", "SKILL_TOTAL", "HIGH_RISK", "LAST_MAN_STANDING", "TOURNAMENT", "DEADMAN", "DEADMAN_TOURNAMENT", "LEAGUE" ]
+        }
+      }
+    },
+    "GrandExchangeTradeHistory" : {
+      "type" : "object",
+      "properties" : {
+        "buy" : {
+          "type" : "boolean"
+        },
+        "itemId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "price" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "time" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "HiscoreResult" : {
+      "type" : "object",
+      "properties" : {
+        "player" : {
+          "type" : "string"
+        },
+        "overall" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "attack" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "defence" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "strength" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "hitpoints" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "ranged" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "prayer" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "magic" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "cooking" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "woodcutting" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "fletching" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "fishing" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "firemaking" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "crafting" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "smithing" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "mining" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "herblore" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "agility" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "thieving" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "slayer" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "farming" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "runecraft" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "hunter" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "construction" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "leaguePoints" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "bountyHunterHunter" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "bountyHunterRogue" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "clueScrollAll" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "clueScrollBeginner" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "clueScrollEasy" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "clueScrollMedium" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "clueScrollHard" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "clueScrollElite" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "clueScrollMaster" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "lastManStanding" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "abyssalSire" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "alchemicalHydra" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "barrowsChests" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "bryophyta" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "callisto" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "cerberus" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "chambersOfXeric" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "chambersOfXericChallengeMode" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "chaosElemental" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "chaosFanatic" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "commanderZilyana" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "corporealBeast" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "crazyArchaeologist" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "dagannothPrime" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "dagannothRex" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "dagannothSupreme" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "derangedArchaeologist" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "generalGraardor" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "giantMole" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "grotesqueGuardians" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "hespori" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "kalphiteQueen" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "kingBlackDragon" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "kraken" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "kreearra" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "krilTsutsaroth" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "mimic" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "nightmare" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "obor" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "sarachnis" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "scorpia" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "skotizo" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "gauntlet" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "corruptedGauntlet" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "theatreOfBlood" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "thermonuclearSmokeDevil" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "tzKalZuk" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "tzTokJad" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "venenatis" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "vetion" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "vorkath" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "wintertodt" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "zalcano" : {
+          "$ref" : "#/definitions/Skill"
+        },
+        "zulrah" : {
+          "$ref" : "#/definitions/Skill"
+        }
+      }
+    },
+    "ItemDefinition" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "resizeX" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "resizeY" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "resizeZ" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "xan2d" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "yan2d" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "zan2d" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "cost" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "isTradeable" : {
+          "type" : "boolean"
+        },
+        "stackable" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "inventoryModel" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "members" : {
+          "type" : "boolean"
+        },
+        "colorFind" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "colorReplace" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "textureFind" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "textureReplace" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "zoom2d" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "xOffset2d" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "yOffset2d" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ambient" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "contrast" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "countCo" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "countObj" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "options" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "interfaceOptions" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "maleModel0" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "maleModel1" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "maleModel2" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "maleOffset" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "maleHeadModel" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "maleHeadModel2" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "femaleModel0" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "femaleModel1" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "femaleModel2" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "femaleOffset" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "femaleHeadModel" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "femaleHeadModel2" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "notedID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "notedTemplate" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "team" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "shiftClickDropIndex" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "boughtId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "boughtTemplateId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "placeholderId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "placeholderTemplateId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "params" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "object"
+          }
+        },
+        "tradeable" : {
+          "type" : "boolean"
+        },
+        "xoffset2d" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "yoffset2d" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "ItemPrice" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "price" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "time" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "LootAggregate" : {
+      "type" : "object",
+      "properties" : {
+        "eventId" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string",
+          "enum" : [ "NPC", "PLAYER", "EVENT", "PICKPOCKET", "UNKNOWN" ]
+        },
+        "drops" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/GameItem"
+          }
+        },
+        "first_time" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "last_time" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "LootRecord" : {
+      "type" : "object",
+      "properties" : {
+        "eventId" : {
+          "type" : "string"
+        },
+        "type" : {
+          "type" : "string",
+          "enum" : [ "NPC", "PLAYER", "EVENT", "PICKPOCKET", "UNKNOWN" ]
+        },
+        "metadata" : {
+          "type" : "object"
+        },
+        "drops" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/GameItem"
+          }
+        },
+        "time" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "NpcDefinition" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "models" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "chatheadModels" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "standingAnimation" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rotateLeftAnimation" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rotateRightAnimation" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "walkingAnimation" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rotate180Animation" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rotate90RightAnimation" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rotate90LeftAnimation" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "recolorToFind" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "recolorToReplace" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "retextureToFind" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "retextureToReplace" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "actions" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "isMinimapVisible" : {
+          "type" : "boolean"
+        },
+        "combatLevel" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "widthScale" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "heightScale" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hasRenderPriority" : {
+          "type" : "boolean"
+        },
+        "ambient" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "contrast" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "headIcon" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "rotationSpeed" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "configs" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "varbitId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "varpIndex" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "isInteractable" : {
+          "type" : "boolean"
+        },
+        "rotationFlag" : {
+          "type" : "boolean"
+        },
+        "isPet" : {
+          "type" : "boolean"
+        },
+        "params" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "object"
+          }
+        },
+        "minimapVisible" : {
+          "type" : "boolean"
+        },
+        "interactable" : {
+          "type" : "boolean"
+        },
+        "pet" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "OAuthResponse" : {
+      "type" : "object",
+      "properties" : {
+        "oauthUrl" : {
+          "type" : "string"
+        },
+        "uid" : {
+          "type" : "string",
+          "format" : "uuid"
+        }
+      }
+    },
+    "ObjectDefinition" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "retextureToFind" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "decorDisplacement" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "objectModels" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "objectTypes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "recolorToFind" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "mapAreaId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "textureToReplace" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "sizeX" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sizeY" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "anInt2083" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "anIntArray2084" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "offsetX" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "mergeNormals" : {
+          "type" : "boolean"
+        },
+        "wallOrDoor" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "animationID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "varbitID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ambient" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "contrast" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "actions" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "interactType" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "mapSceneID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "blockingMask" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "recolorToReplace" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "shadow" : {
+          "type" : "boolean"
+        },
+        "modelSizeX" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "modelSizeHeight" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "modelSizeY" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "objectID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "offsetHeight" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "offsetY" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "obstructsGround" : {
+          "type" : "boolean"
+        },
+        "contouredGround" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "supportsItems" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "configChangeDest" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "varpID" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ambientSoundId" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "anInt2112" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "anInt2113" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "blocksProjectile" : {
+          "type" : "boolean"
+        },
+        "params" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "object"
+          }
+        },
+        "hollow" : {
+          "type" : "boolean"
+        },
+        "rotated" : {
+          "type" : "boolean"
+        },
+        "abool2111" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "SingleHiscoreSkillResult" : {
+      "type" : "object",
+      "properties" : {
+        "player" : {
+          "type" : "string"
+        },
+        "skillName" : {
+          "type" : "string"
+        },
+        "skill" : {
+          "$ref" : "#/definitions/Skill"
+        }
+      }
+    },
+    "Skill" : {
+      "type" : "object",
+      "properties" : {
+        "rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "level" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "experience" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Task" : {
+      "type" : "object",
+      "properties" : {
+        "task" : {
+          "type" : "string"
+        },
+        "amount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "initialAmount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "location" : {
+          "type" : "string"
+        }
+      }
+    },
+    "World" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "types" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "enum" : [ "MEMBERS", "PVP", "BOUNTY", "SKILL_TOTAL", "HIGH_RISK", "LAST_MAN_STANDING", "TOURNAMENT", "DEADMAN", "DEADMAN_TOURNAMENT", "LEAGUE" ]
+          }
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "activity" : {
+          "type" : "string"
+        },
+        "location" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "players" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "region" : {
+          "type" : "string",
+          "enum" : [ "UNITED_STATES_OF_AMERICA", "UNITED_KINGDOM", "AUSTRALIA", "GERMANY" ]
+        }
+      }
+    },
+    "WorldResult" : {
+      "type" : "object",
+      "properties" : {
+        "worlds" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/World"
+          }
+        }
+      }
+    },
+    "XpData" : {
+      "type" : "object",
+      "properties" : {
+        "time" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "attack_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "defence_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "strength_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hitpoints_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ranged_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "prayer_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "magic_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "cooking_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "woodcutting_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "fletching_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "fishing_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "firemaking_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "crafting_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "smithing_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "mining_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "herblore_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "agility_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "thieving_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "slayer_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "farming_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "runecraft_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hunter_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "construction_xp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "overall_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "attack_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "defence_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "strength_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hitpoints_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ranged_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "prayer_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "magic_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "cooking_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "woodcutting_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "fletching_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "fishing_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "firemaking_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "crafting_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "smithing_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "mining_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "herblore_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "agility_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "thieving_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "slayer_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "farming_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "runecraft_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hunter_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "construction_rank" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "XteaKey" : {
+      "type" : "object",
+      "properties" : {
+        "region" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "keys" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      }
+    },
+    "XteaRequest" : {
+      "type" : "object",
+      "properties" : {
+        "revision" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "keys" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/XteaKey"
+          }
+        }
+      }
+    }
+  }
+}

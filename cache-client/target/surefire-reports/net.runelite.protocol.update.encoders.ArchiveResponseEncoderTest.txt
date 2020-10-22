@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: net.runelite.protocol.update.encoders.ArchiveResponseEncoderTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.06 sec - in net.runelite.protocol.update.encoders.ArchiveResponseEncoderTest
